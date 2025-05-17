@@ -10,6 +10,7 @@ public class Game {
     int turnCount;
     String messages;
 
+    // Races
     Race HUMAN = new Race("Human", 4, 4, 4, 4, 4, 4, 4, 10, 10, 10);
     Race ELF = new Race("Elf", 2, 6, 6, 4, 2, 5, 3, 6, 6, 18);
     Race DWARF = new Race("Dwarf", 6, 2, 2, 3, 6, 3, 6, 20, 7, 3);
@@ -18,7 +19,7 @@ public class Game {
 
     Scanner scanner;
 
-    public Game(){
+    public Game() {
         team = new ArrayList<>();
         turnOrder = new ArrayList<>();
         combatLog = new ArrayList<>();
@@ -26,10 +27,10 @@ public class Game {
         scanner = new Scanner(System.in);
     }
 
-    public void start(){
+    public void start() {
         generateTurnOrder();
 
-        while (!checkCondition()){
+        while (!checkCondition()) {
             System.out.println("\n== TURN" + " ===");
             nextTurn();
             turnCount++;
@@ -39,12 +40,12 @@ public class Game {
         System.out.println(combatLog());
     }
 
-    public void generateTurnOrder(){
+    public void generateTurnOrder() {
         turnOrder.clear();
 
-        for(Team t : team) {
-            for(Character c : t.members){
-                if(c.HP > 0) {
+        for (Team t : team) {
+            for (Character c : t.members) {
+                if (c.HP > 0) {
                     turnOrder.add(c);
                 }
             }
@@ -87,4 +88,5 @@ public class Game {
 
     }
     
+    }
 }
