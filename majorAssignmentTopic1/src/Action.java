@@ -102,7 +102,7 @@ public class Action {
             System.out.println(
                     "Critical Hit! " + user.name + " dealt " + rawDamage + " to " + target.name + " with " + name);
         } else if (roll <= 3) {
-            System.out.println(user.name + "'s attack missed" + target.name + "!");
+            System.out.println(user.name + "'s attack missed " + target.name + "!");
         } else if (roll <= 6) {
             int rawDamage = calculateDamage(user, target) / 2;
             rawDamage = Math.max(0, rawDamage);

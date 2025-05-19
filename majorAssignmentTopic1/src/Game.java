@@ -34,7 +34,7 @@ public class Game {
         scanner = new Scanner(System.in);
 
         // Initialize Classes
-        // Warrior
+        // Warrior and Warrior Skills
         ArrayList<Action> warriorSkills = new ArrayList<>();
         warriorSkills.add(new Action("Slash", "attack", 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         warriorSkills.add(new Action("War Cry", "buff", 0, 0, 0, 0, 3, 2, 0, 0, 0, 0, 0, 0, 10, 0, 0));
@@ -45,7 +45,7 @@ public class Game {
         // Berserk - +3 Strength, -1 Resist
         WARRIOR = new CharacterClass("Warrior", 7, 2, 3, 3, 6, 4, 3, 15, 10, 5, warriorSkills);
 
-        // Paladin
+        // Paladin and Paladin Skills
         ArrayList<Action> paladinSkills = new ArrayList<>();
         paladinSkills.add(new Action("Strike", "attack", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         paladinSkills.add(new Action("Sanctuary", "buff", 0, 0, 0, 0, 3, 0, 0, 0, 0, 2, 0, 2, 0, 0, 10));
@@ -55,7 +55,7 @@ public class Game {
         paladinSkills.add(new Action("Heal Touch", "heal", 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6));
         PALADIN = new CharacterClass("Paladin", 5, 4, 3, 3, 6, 3, 4, 14, 8, 8, paladinSkills);
 
-        // Rogue
+        // Rogue and Rogue Skills
         ArrayList<Action> rogueSkills = new ArrayList<>();
         rogueSkills.add(new Action("Stab", "attack", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         rogueSkills.add(new Action("Poison Blade", "dot", 8, 0, 5, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0));
@@ -65,7 +65,7 @@ public class Game {
         // Cheap Shot - minor debuff to simulate stun
         ROGUE = new CharacterClass("Rogue", 4, 3, 7, 5, 3, 5, 1, 10, 15, 5, rogueSkills);
 
-        // Ranger
+        // Ranger and Ranger Skills
         ArrayList<Action> rangerSkills = new ArrayList<>();
         rangerSkills.add(new Action("Shoot", "attack", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         rangerSkills.add(new Action("Volley", "attack", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0));
@@ -75,7 +75,7 @@ public class Game {
         // Camouflage - Evasion buff
         RANGER = new CharacterClass("Ranger", 5, 3, 6, 5, 4, 4, 1, 12, 12, 6, rangerSkills);
 
-        // Mage
+        // Mage and Mage Skills
         ArrayList<Action> mageSkills = new ArrayList<>();
         mageSkills.add(new Action("Bolt", "attack", 12, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0));
         mageSkills.add(new Action("Fireball", "dot", 5, 0, 6, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 10));
@@ -84,7 +84,7 @@ public class Game {
         mageSkills.add(new Action("Dispel", "debuff", 0, 0, 0, 0, 1, -2, -2, 0, 0, 0, 0, -2, 0, 0, 8));
         MAGE = new CharacterClass("Mage", 1, 8, 3, 3, 2, 3, 8, 8, 7, 15, mageSkills);
 
-        // Cleric
+        // Cleric and Cleric Skills
         ArrayList<Action> clericSkills = new ArrayList<>();
         clericSkills.add(new Action("Smite", "attack", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         clericSkills.add(new Action("Heal", "heal", 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10));

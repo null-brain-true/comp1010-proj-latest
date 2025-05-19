@@ -17,6 +17,8 @@ public class Character {
         this.characterClass = characterClass;
         this.actions = new ArrayList<>();
 
+        this.activeStatusEffects = new ArrayList<>();
+
         // default HP and SP values
         int baseHP = 50;
         int baseSP = 100;
