@@ -6,7 +6,8 @@ public class CharacterClass {
     int bonusHP, bonusSP, bonusMP;
     ArrayList<Action> abilities;
 
-    public CharacterClass(String name, int Strength, int Intellect, int Agility, int Initiative, int Defense, int Evasion, int Resist,  int bonusHP, int bonusSP, int bonusMP, ArrayList<Action> abilities){
+    public CharacterClass(String name, int Strength, int Intellect, int Agility, int Initiative, int Defense,
+            int Evasion, int Resist, int bonusHP, int bonusSP, int bonusMP, ArrayList<Action> abilities) {
         this.name = name;
         this.Strength = Strength;
         this.Intellect = Intellect;
@@ -18,10 +19,10 @@ public class CharacterClass {
         this.bonusHP = bonusHP;
         this.bonusSP = bonusSP;
         this.bonusMP = bonusMP;
-        this.abilities=abilities;
+        this.abilities = abilities;
     }
 
-    public void applyClassStat(Character c){
+    public void applyClassStat(Character c) {
         c.Strength += Strength;
         c.Intellect += Intellect;
         c.Agility += Agility;
@@ -33,11 +34,11 @@ public class CharacterClass {
         c.SP += bonusSP;
         c.MP += bonusMP;
     }
-    
-    public void applyClassAbilities(Character c){
-        for(Action ability : abilities){
+
+    public void applyClassAbilities(Character c) {
+        for (Action ability : abilities) {
             c.addAction(ability);
         }
     }
-    
+
 }

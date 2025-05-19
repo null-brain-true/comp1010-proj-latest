@@ -3,7 +3,8 @@ public class Race {
     int Strength, Intellect, Agility, Initiative, Defense, Evasion, Resist;
     int bonusHP, bonusSP, bonusMP;
 
-    public Race(String name, int Strength, int Intellect, int Agility, int Initiative, int Defense, int Evasion, int Resist, int bonusHP, int bonusSP, int bonusMP){
+    public Race(String name, int Strength, int Intellect, int Agility, int Initiative, int Defense, int Evasion,
+            int Resist, int bonusHP, int bonusSP, int bonusMP) {
         this.name = name;
         this.Strength = Strength;
         this.Intellect = Intellect;
@@ -17,7 +18,7 @@ public class Race {
         this.bonusMP = bonusMP;
     }
 
-    public void applyRaceStat(Character c){
+    public void applyRaceStat(Character c) {
         c.Strength += Strength;
         c.Intellect += Intellect;
         c.Agility += Agility;
