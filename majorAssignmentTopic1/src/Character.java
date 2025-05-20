@@ -11,6 +11,7 @@ public class Character {
     public boolean isDefeated, outOfSP, outOfMP;
     private int currentHP, currentSP, currentMP;
 
+    //character constructor
     public Character(String name, Race race, CharacterClass characterClass) {
         this.name = name;
         this.race = race;
