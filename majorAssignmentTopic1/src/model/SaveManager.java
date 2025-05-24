@@ -1,3 +1,4 @@
+package model;
 public class SaveManager {
     public static void saveCharacters(String filename, List<Character> characters) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
