@@ -6,4 +6,3 @@ public class Client {
         game.start();
     }
 }
-  

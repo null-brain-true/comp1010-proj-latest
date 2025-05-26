@@ -26,11 +26,12 @@ public class Action {
     public int mpCost = 0;
 
     //skill constructor
-    public Action(String name, String type, int damage, int heal, int damagePerTurn, int healPerTurn, int duration,
+    public Action(String name, String type, String damageType, int damage, int heal, int damagePerTurn, int healPerTurn, int duration,
             int strengthMod, int intellectMod, int agilityMod, int initiativeMod,
             int defenseMod, int evasionMod, int resistMod, int hpCost, int spCost, int mpCost) {
         this.name = name;
         this.type = type;
+        this.damageType = damageType;
         this.damage = damage;
         this.heal = heal;
         this.damagePerTurn = damagePerTurn;
