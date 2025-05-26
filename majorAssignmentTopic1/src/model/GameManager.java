@@ -1,7 +1,7 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class GameManager {
     public static Game createSampleGame() {
@@ -21,5 +21,21 @@ public class GameManager {
         game.team.add(team2);
 
         return game;
+    }
+
+    public static List<Character> createSampleCharacters() {
+        List<Character> characters = new ArrayList<>();
+
+        Character c1 = new Character("Aragon", Game.HUMAN, Game.WARRIOR);
+        Character c2 = new Character("Elara", Game.ELF, Game.MAGE);
+        Character c3 = new Character("Durin", Game.DWARF, Game.CLERIC);
+        Character c4 = new Character("Raze", Game.DEMON, Game.ROGUE);
+
+        characters.add(c1);
+        characters.add(c2);
+        characters.add(c3);
+        characters.add(c4);
+
+        return characters;
     }
 }

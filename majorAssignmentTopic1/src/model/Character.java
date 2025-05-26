@@ -1,4 +1,5 @@
 package model;
+
 import java.util.ArrayList;
 
 public class Character {
@@ -12,7 +13,7 @@ public class Character {
     public boolean isDefeated, outOfSP, outOfMP;
     private int currentHP, currentSP, currentMP;
 
-    //character constructor
+    // character constructor
     public Character(String name, Race race, CharacterClass characterClass) {
         this.name = name;
         this.race = race;
@@ -27,11 +28,8 @@ public class Character {
         int baseMP = 100;
 
         this.HP = baseHP;
-        this.currentHP = this.HP;
         this.SP = baseSP;
-        this.currentSP = this.SP;
         this.MP = baseMP;
-        this.currentMP = this.MP;
         this.Strength = 0;
         this.Intellect = 0;
         this.Agility = 0;
@@ -43,11 +41,19 @@ public class Character {
         race.applyRaceStat(this);
         characterClass.applyClassStat(this);
 
+        this.currentHP = this.HP;
+        this.currentSP = this.SP;
+        this.currentMP = this.MP;
+
         characterClass.applyClassAbilities(this);
     }
 
     public void addAction(Action action) {
         actions.add(action);
+    }
+
+    public int getInitiative() {
+        return this.Initiative;
     }
 
     public void addStatusEffect(StatusEffect statusEffect) {
@@ -66,11 +72,11 @@ public class Character {
         return this.currentHP <= 0;
     }
 
-    public boolean outOfSP(){
+    public boolean outOfSP() {
         return this.currentSP <= 0;
     }
 
-    public boolean outOfMP(){
+    public boolean outOfMP() {
         return this.currentMP <= 0;
     }
 
@@ -86,7 +92,7 @@ public class Character {
         return this.currentSP;
     }
 
-    public void setCurretSP(int sp) {
+    public void setCurrentSP(int sp) {
         this.currentSP = sp;
     }
 

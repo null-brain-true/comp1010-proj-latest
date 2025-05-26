@@ -19,14 +19,14 @@ public class CharacterTests {
     private Race HUMAN;
     private CharacterClass WARRIOR;
 
-    @BeforeEach
+   /* */ @BeforeEach
     void setUp() {
         HUMAN = new Race("Human", 4, 4, 4, 4, 4, 4, 4, 10, 10, 10);
         ArrayList<Action> warriorSkills = new ArrayList<>();
         // Add a dummy action to the warrior class for initialization purposes, if needed
-        warriorSkills.add(new Action("Dummy Attack", "attack", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        warriorSkills.add(new Action("Dummy Attack", "attack", "physical", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         WARRIOR = new CharacterClass("Warrior", 7, 2, 3, 3, 6, 4, 3, 15, 10, 5, warriorSkills);
-        testCharacter = new Character("TestHero", HUMAN, WARRIOR);
+        testCharacter = new Character("TestHero", HUMAN, WARRIOR); 
     }
 
     @Test
@@ -60,11 +60,11 @@ public class CharacterTests {
 
     @Test
     void testOutOfSP() {
-        testCharacter.setCurretSP(10);
+        testCharacter.setCurrentSP(10);
         assertFalse(testCharacter.outOfSP());
-        testCharacter.setCurretSP(0);
+        testCharacter.setCurrentSP(0);
         assertTrue(testCharacter.outOfSP());
-        testCharacter.setCurretSP(-1);
+        testCharacter.setCurrentSP(-1);
         assertTrue(testCharacter.outOfSP());
     }
 

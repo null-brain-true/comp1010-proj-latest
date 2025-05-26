@@ -24,16 +24,16 @@ public class CharacterClass {
     }
 
     public void applyClassStat(Character c) {
-        c.Strength += Strength;
-        c.Intellect += Intellect;
-        c.Agility += Agility;
-        c.Initiative += Initiative;
-        c.Defense += Defense;
-        c.Evasion += Evasion;
-        c.Resist += Resist;
-        c.HP += bonusHP;
-        c.SP += bonusSP;
-        c.MP += bonusMP;
+        c.Strength += this.Strength;
+        c.Intellect += this.Intellect;
+        c.Agility += this.Agility;
+        c.Initiative += this.Initiative;
+        c.Defense += this.Defense;
+        c.Evasion += this.Evasion;
+        c.Resist += this.Resist;
+        c.HP += this.bonusHP;
+        c.SP += this.bonusSP;
+        c.MP += this.bonusMP;
     }
 
     public void applyClassAbilities(Character c) {

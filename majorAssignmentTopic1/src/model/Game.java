@@ -118,7 +118,7 @@ public class Game {
                 }
             }
         }
-        turnOrder.sort((c1, c2) -> Integer.compare(c2.Initiative, c1.Initiative));
+       turnOrder.sort(Comparator.comparingInt(Character::getInitiative).reversed());
     }
 
     public void nextTurn() {
