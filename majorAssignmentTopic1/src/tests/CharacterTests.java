@@ -23,7 +23,6 @@ public class CharacterTests {
     void setUp() {
         HUMAN = new Race("Human", 4, 4, 4, 4, 4, 4, 4, 10, 10, 10);
         ArrayList<Action> warriorSkills = new ArrayList<>();
-        // Add a dummy action to the warrior class for initialization purposes, if needed
         warriorSkills.add(new Action("Dummy Attack", "attack", "physical", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         WARRIOR = new CharacterClass("Warrior", 7, 2, 3, 3, 6, 4, 3, 15, 10, 5, warriorSkills);
         testCharacter = new Character("TestHero", HUMAN, WARRIOR); 
