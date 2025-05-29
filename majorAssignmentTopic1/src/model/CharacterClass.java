@@ -2,10 +2,10 @@ package model;
 import java.util.ArrayList;
 
 public class CharacterClass {
-    String name;
-    int Strength, Intellect, Agility, Initiative, Defense, Evasion, Resist;
-    int bonusHP, bonusSP, bonusMP;
-    ArrayList<Action> abilities;
+    public String name;
+    public int Strength, Intellect, Agility, Initiative, Defense, Evasion, Resist;
+    public int bonusHP, bonusSP, bonusMP;
+    public ArrayList<Action> abilities;
 
     public CharacterClass(String name, int Strength, int Intellect, int Agility, int Initiative, int Defense,
             int Evasion, int Resist, int bonusHP, int bonusSP, int bonusMP, ArrayList<Action> abilities) {

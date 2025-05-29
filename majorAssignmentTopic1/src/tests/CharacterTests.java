@@ -94,7 +94,7 @@ public class CharacterTests {
         Character customCharacter = new Character("Custom", HUMAN, WARRIOR);
         assertEquals(HUMAN.Strength + WARRIOR.Strength, customCharacter.Strength);
         assertEquals(HUMAN.Intellect + WARRIOR.Intellect, customCharacter.Intellect);
-        assertEquals(HUMAN.HP + WARRIOR.bonusHP + 50, customCharacter.HP); // Including base HP
+        assertEquals(HUMAN.bonusHP + WARRIOR.bonusHP + 50, customCharacter.HP); // Including base HP
     }
 
     @Test

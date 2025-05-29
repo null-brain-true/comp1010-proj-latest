@@ -1,11 +1,11 @@
 package model;
 public class StatusEffect {
-    String name;
-    int DoT, HoT; // Damage Over Time, Heal OverTime
-    int strengthMod, intellectMod, agilityMod, initiativeMod, defenseMod, evasionMod, resistMod;
-    int duration;
-    boolean buffApplied = false;
-    boolean debuffApplied = false;
+    public String name;
+    public int DoT, HoT; // Damage Over Time, Heal OverTime
+    public int strengthMod, intellectMod, agilityMod, initiativeMod, defenseMod, evasionMod, resistMod;
+    public int duration;
+    public boolean buffApplied = false;
+    public boolean debuffApplied = false;
 
     public StatusEffect(String name, int DoT, int HoT, int strengthMod, int intellectMod, int agilityMod,
             int initiativeMod, int defenseMod, int evasionMod, int resistMod, int duration) {
