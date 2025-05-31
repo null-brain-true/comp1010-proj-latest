@@ -103,4 +103,18 @@ public class Character {
     public void setCurrentMP(int mp) {
         this.currentMP = mp;
     }
+
+    public String toCSV() {
+    return name + "," +
+           race.getName() + "," +
+           characterClass.getName();
+}
+    public Object getRace() {
+        return this.race;
+    }
+
+    public Object getCharacterClass() {
+        return this.characterClass;
+    }
+
 }

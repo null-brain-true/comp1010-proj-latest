@@ -1,4 +1,7 @@
 package model;
+
+import java.util.List;
+
 public class StatusEffect {
     public String name;
     public int DoT, HoT; // Damage Over Time, Heal OverTime
@@ -85,5 +88,30 @@ public class StatusEffect {
 
     public boolean isExpired() {
         return duration <= 0;
+    }
+
+     public static void updateStatusEffectsRecursive(List<StatusEffect> effects, Character c, int index) {
+        if (index >= effects.size()) {
+            return; // Base case: processed all effects
+        }
+
+        StatusEffect effect = effects.get(index);
+
+        effect.applyBuff(c);
+        effect.applyDebuff(c);
+        effect.applyTurnEffect(c);
+
+        effect.duration--;
+
+        if (effect.isExpired()) {
+            effect.buffWearOff(c);
+            effect.debuffWearOff(c);
+            effects.remove(index);
+            // After removing current effect, recurse on same index because list shifted left
+            updateStatusEffectsRecursive(effects, c, index);
+        } else {
+            // Move on to next effect
+            updateStatusEffectsRecursive(effects, c, index + 1);
+        }
     }
 }

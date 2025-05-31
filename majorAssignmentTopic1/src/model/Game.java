@@ -1,6 +1,5 @@
 package model;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -13,19 +12,19 @@ public class Game {
     Scanner scanner;
 
     // Races
-    Race HUMAN = new Race("Human", 4, 4, 4, 4, 4, 4, 4, 10, 10, 10);
-    Race ELF = new Race("Elf", 2, 6, 6, 4, 2, 5, 3, 6, 6, 18);
-    Race DWARF = new Race("Dwarf", 6, 2, 2, 3, 6, 3, 6, 20, 7, 3);
-    Race DEMON = new Race("Demon", 6, 6, 3, 4, 3, 3, 3, 15, 5, 10);
-    Race UNDEAD = new Race("Undead", 5, 4, 1, 3, 6, 3, 6, 18, 4, 8);
+    static Race HUMAN = new Race("Human", 4, 4, 4, 4, 4, 4, 4, 10, 10, 10);
+    static Race ELF = new Race("Elf", 2, 6, 6, 4, 2, 5, 3, 6, 6, 18);
+    static Race DWARF = new Race("Dwarf", 6, 2, 2, 3, 6, 3, 6, 20, 7, 3);
+    static Race DEMON = new Race("Demon", 6, 6, 3, 4, 3, 3, 3, 15, 5, 10);
+    static Race UNDEAD = new Race("Undead", 5, 4, 1, 3, 6, 3, 6, 18, 4, 8);
 
     // Character Classes
-    CharacterClass WARRIOR;
-    CharacterClass PALADIN;
-    CharacterClass ROGUE;
-    CharacterClass RANGER;
-    CharacterClass MAGE;
-    CharacterClass CLERIC;
+    static CharacterClass WARRIOR;
+    static CharacterClass PALADIN;
+    static CharacterClass ROGUE;
+    static CharacterClass RANGER;
+    static CharacterClass MAGE;
+    static CharacterClass CLERIC;
 
     public Game() {
         team = new ArrayList<>();
@@ -118,7 +117,7 @@ public class Game {
                 }
             }
         }
-       turnOrder.sort(Comparator.comparingInt(Character::getInitiative).reversed());
+       turnOrder.sort(Comparator.comparingInt(Character::getInitiative).reversed()); // sorts the turn order
     }
 
     public void nextTurn() {
@@ -126,6 +125,8 @@ public class Game {
             if (current.HP <= 0)
                 continue;
 
+            updateStatusEffectsRecursive(current);
+            
             // Apply and manage status effects at the start of the turn
             for (StatusEffect effect : new ArrayList<>(current.getActiveStatusEffects())) {
                 effect.applyTurnEffect(current);
@@ -194,10 +195,18 @@ public class Game {
                 continue;
             }
 
-            // Pass isEnemy to the effect method
+            // pass isEnemy to the effect method
             selectedAction.effect(current, target, isEnemyTarget);
         }
         generateTurnOrder(); // recreate turn order when characters are defeated
+    }
+
+    private void updateStatusEffectsRecursive(Character current) {
+        if (current==null){
+            return;
+        }
+
+        current.getActiveStatusEffects();
     }
 
     private Team getEnemyTeam(Character current){
@@ -259,12 +268,8 @@ public class Game {
 
 
     private void executeAction(Character actor, Action action, Character target) {
-        // The core logic for applying effects is now within Action.java's effect method.
-        // This method primarily handles logging and checking for defeat.
-        // The 'effect' method in Action will also check resource costs.
-        // We no longer need the complex if-else if chain here since the effect method handles it.
-        // The damage/heal calculation is now handled in Action's attackEffect, healEffect, etc.
-        // The 'executeAction' method can simply call action.effect and then log.
+        // The damage/heal calculation is now handled in Action
+        // call action effect and log?
 
         // action.effect will print its own messages based on the outcome (miss, crit, heal, etc.)
         // and also deduct costs and apply effects.
