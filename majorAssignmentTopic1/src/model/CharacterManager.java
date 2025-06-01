@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CharacterManager {
+    // store created characters
     private ArrayList<Character> characters;
 
+    // initialize empty list
     public CharacterManager() {
         this.characters = new ArrayList<>();
     }
@@ -19,6 +21,7 @@ public class CharacterManager {
         }
     }
 
+    // character creation
     public Character createCharacter(String name, String raceName, String className) {
         Race race = Race.getRace(raceName);
         CharacterClass characterClass = CharacterClass.getCharacterClass(className);
@@ -41,39 +44,6 @@ public class CharacterManager {
         }
         writer.close();
     }
-
-  public ArrayList<Character> loadFromCSV(String fileName) throws IOException {
-    ArrayList<Character> loadedCharacters = new ArrayList<>();
-    BufferedReader reader = new BufferedReader(new FileReader(fileName));
-    String line;
-
-    while ((line = reader.readLine()) != null) {
-        String[] parts = line.split(",");
-        if (parts.length < 3) {
-            System.out.println("Skipping malformed line: " + line);
-            continue;
-        }
-
-        String name = parts[0].trim();
-        String raceName = parts[1].trim();
-        String className = parts[2].trim();
-
-        Race race = Race.getRace(raceName);
-        CharacterClass characterClass = CharacterClass.getCharacterClass(className);
-
-        if (race != null && characterClass != null) {
-            Character character = new Character(name, race, characterClass);
-            loadedCharacters.add(character); // Add to local list
-            addCharacter(character); // Optionally also add to manager’s list
-        } else {
-            System.out.println("Skipping invalid entry: " + line);
-        }
-    }
-
-    reader.close();
-    return loadedCharacters;
-}
-
 
     public ArrayList<Character> getCharacters() {
         return new ArrayList<>(characters);
@@ -102,14 +72,13 @@ public class CharacterManager {
         characters.clear();
     }
 
-    
     public static void main(String[] args) throws IOException {
         CharacterManager manager = new CharacterManager();
         Scanner scanner = new Scanner(System.in);
 
-         System.out.print("Enter number of characters to create: ");
+        System.out.print("Enter number of characters to create: ");
         int count = Integer.parseInt(scanner.nextLine());
-
+        // creates numbers of character you enter in terminal
         for (int i = 0; i < count; i++) {
             System.out.println("Character #" + (i + 1));
             System.out.print("Name: ");

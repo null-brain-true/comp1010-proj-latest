@@ -1,17 +1,17 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Game {
-    ArrayList<Team> team;
-    LinkedList<Character> turnOrder;
-    ArrayList<String> combatLog;
-    int turnCount;
+    public ArrayList<Team> team;
+    public LinkedList<Character> turnOrder;
+    public int turnCount;
     Scanner scanner;
 
-    // Races
+    // Race names and their stat points
     static Race HUMAN = new Race("Human", 4, 4, 4, 4, 4, 4, 4, 10, 10, 10);
     static Race ELF = new Race("Elf", 2, 6, 6, 4, 2, 5, 3, 6, 6, 18);
     static Race DWARF = new Race("Dwarf", 6, 2, 2, 3, 6, 3, 6, 20, 7, 3);
@@ -29,7 +29,6 @@ public class Game {
     public Game() {
         team = new ArrayList<>();
         turnOrder = new LinkedList<>();
-        combatLog = new ArrayList<>();
         turnCount = 1;
         scanner = new Scanner(System.in);
 
@@ -39,7 +38,8 @@ public class Game {
         warriorSkills.add(new Action("Slash", "attack", "physical", 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         warriorSkills.add(new Action("War Cry", "buff", "magical", 0, 0, 0, 0, 3, 2, 0, 0, 0, 0, 0, 0, 10, 0, 0));
         // War Cry - +2 Strength to team
-        warriorSkills.add(new Action("Defender Stance", "buff", "physical", 0, 0, 0, 0, 3, 0, 0, 0, 0, 2, 0, 0, 0, 8, 0));
+        warriorSkills
+                .add(new Action("Defender Stance", "buff", "physical", 0, 0, 0, 0, 3, 0, 0, 0, 0, 2, 0, 0, 0, 8, 0));
         // Defender Stance - +2 Defense
         warriorSkills.add(new Action("Berserk", "buff", "magical", 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, -1, 10, 0, 0));
         // Berserk - +3 Strength, -1 Resist
@@ -67,10 +67,11 @@ public class Game {
 
         // Ranger and Ranger Skills
         ArrayList<Action> rangerSkills = new ArrayList<>();
-        rangerSkills.add(new Action("Shoot", "attack", "physical",  13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        rangerSkills.add(new Action("Shoot", "attack", "physical", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         rangerSkills.add(new Action("Volley", "attack", "physical", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0));
         // Volley - Simulated AoE manually
-        rangerSkills.add(new Action("Expose Weakness", "debuff", "magical", 0, 0, 0, 0, 3, 0, 0, 0, 0, -2, -2, -2, 0, 6, 0));
+        rangerSkills.add(
+                new Action("Expose Weakness", "debuff", "magical", 0, 0, 0, 0, 3, 0, 0, 0, 0, -2, -2, -2, 0, 6, 0));
         rangerSkills.add(new Action("Camouflage", "buff", "magical", 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 3, 0, 0, 5, 0));
         // Camouflage - Evasion buff
         RANGER = new CharacterClass("Ranger", 5, 3, 6, 5, 4, 4, 1, 12, 12, 6, rangerSkills);
@@ -104,7 +105,6 @@ public class Game {
         }
 
         System.out.println("=== COMBAT ENDED ===");
-        System.out.println(combatLog());
     }
 
     public void generateTurnOrder() {
@@ -117,7 +117,8 @@ public class Game {
                 }
             }
         }
-       turnOrder.sort(Comparator.comparingInt(Character::getInitiative).reversed()); // sorts the turn order
+        turnOrder.sort(Comparator.comparingInt(Character::getInitiative).reversed()); // sorts the turn order based on
+                                                                                      // initiative
     }
 
     public void nextTurn() {
@@ -125,8 +126,8 @@ public class Game {
             if (current.HP <= 0)
                 continue;
 
-            updateStatusEffectsRecursive(current);
-            
+            updateStatusEffects(current);
+
             // Apply and manage status effects at the start of the turn
             for (StatusEffect effect : new ArrayList<>(current.getActiveStatusEffects())) {
                 effect.applyTurnEffect(current);
@@ -138,30 +139,32 @@ public class Game {
             }
             current.getActiveStatusEffects().removeIf(StatusEffect::isExpired); // handles expired buff and debuff
 
-
+            // lines in terminal
             System.out.println("\n== " + current.name + "'s Turn ==");
             System.out.println("HP:" + current.HP + " | MP: " + current.MP + " | SP: " + current.SP);
-            System.out.println("Current Stats: Str:" + current.Strength + " Int:" + current.Intellect + " Agi:" + current.Agility +
-                               " Ini:" + current.Initiative + " Def:" + current.Defense + " Eva:" + current.Evasion + " Res:" + current.Resist);
-
+            System.out.println(
+                    "Current Stats: Str:" + current.Strength + " Int:" + current.Intellect + " Agi:" + current.Agility +
+                            " Ini:" + current.Initiative + " Def:" + current.Defense + " Eva:" + current.Evasion
+                            + " Res:" + current.Resist);
 
             System.out.println("Choose an action:");
-            for(int i=0;i<current.actions.size();i++){
+            for (int i = 0; i < current.actions.size(); i++) {
                 Action action = current.actions.get(i);
-                System.out.println((i+1) + ": " + action.name + " (Type: " + action.type + ", HP Cost: " + action.hpCost +
-                                   ", SP Cost: " + action.spCost + ", MP Cost: " + action.mpCost + ")");
+                System.out.println(
+                        (i + 1) + ": " + action.name + " (Type: " + action.type + ", HP Cost: " + action.hpCost +
+                                ", SP Cost: " + action.spCost + ", MP Cost: " + action.mpCost + ")");
             }
 
             int choice = 0;
-            while (choice < 1 || choice > current.actions.size()){
-                System.out.println("Enter action number: " );
-                if(scanner.hasNextInt()) {
+            while (choice < 1 || choice > current.actions.size()) {
+                System.out.println("Enter action number: ");
+                if (scanner.hasNextInt()) {
                     choice = scanner.nextInt();
                 } else {
-                    scanner.next(); 
+                    scanner.next();
                 }
             }
-            Action selectedAction = current.actions.get(choice-1);
+            Action selectedAction = current.actions.get(choice - 1);
 
             Team enemyTeam = getEnemyTeam(current);
             Team friendlyTeam = getFriendlyTeam(current);
@@ -170,15 +173,17 @@ public class Game {
             boolean isEnemyTarget = false;
 
             // Determine target type based on action type
-            if (selectedAction.type.equals("attack") || selectedAction.type.equals("dot") || selectedAction.type.equals("debuff")) {
-                if(enemyTeam==null || enemyTeam.members.isEmpty()){
+            if (selectedAction.type.equals("attack") || selectedAction.type.equals("dot")
+                    || selectedAction.type.equals("debuff")) {
+                if (enemyTeam == null || enemyTeam.members.isEmpty()) {
                     System.out.println("No enemies left to target!");
                     continue; // Skip turn if no valid target
                 }
                 target = selectTarget(enemyTeam);
                 isEnemyTarget = true;
-            } else if (selectedAction.type.equals("heal") || selectedAction.type.equals("hot") || selectedAction.type.equals("buff")) {
-                if(friendlyTeam==null || friendlyTeam.members.isEmpty()){
+            } else if (selectedAction.type.equals("heal") || selectedAction.type.equals("hot")
+                    || selectedAction.type.equals("buff")) {
+                if (friendlyTeam == null || friendlyTeam.members.isEmpty()) {
                     System.out.println("No allies to target!");
                     continue; // Skip turn if no valid target
                 }
@@ -189,8 +194,7 @@ public class Game {
                 continue; // Skip turn for unknown action type
             }
 
-
-            if(target==null){
+            if (target == null) {
                 System.out.println("No valid target selected.");
                 continue;
             }
@@ -201,19 +205,19 @@ public class Game {
         generateTurnOrder(); // recreate turn order when characters are defeated
     }
 
-    private void updateStatusEffectsRecursive(Character current) {
-        if (current==null){
+    private void updateStatusEffects(Character current) {
+        if (current == null) {
             return;
         }
 
         current.getActiveStatusEffects();
     }
 
-    private Team getEnemyTeam(Character current){
-        for(Team t : team){
+    private Team getEnemyTeam(Character current) {
+        for (Team t : team) {
             // if team does not contain the current character, it is enemy team
-            if(!t.members.contains(current)) {
-                if (t.isActive()){
+            if (!t.members.contains(current)) {
+                if (t.isActive()) {
                     return t;
                 }
             }
@@ -221,11 +225,11 @@ public class Game {
         return null;
     }
 
-    private Team getFriendlyTeam(Character current){
-        for(Team t : team){
+    private Team getFriendlyTeam(Character current) {
+        for (Team t : team) {
             // if team contains the current character, it is friendly team
-            if(t.members.contains(current)) {
-                if (t.isActive()){
+            if (t.members.contains(current)) {
+                if (t.isActive()) {
                     return t;
                 }
             }
@@ -233,58 +237,56 @@ public class Game {
         return null;
     }
 
-
-    private Character selectTarget(Team teamToTarget){
+    // target selection
+    private Character selectTarget(Team teamToTarget) {
         System.out.println("Select target: ");
-        for(int i=0;i<teamToTarget.members.size();i++){
-            Character c  = teamToTarget.members.get(i);
-            if(!c.isDefeated()){
-                System.out.println((i+1) + ": " + c.name + " (HP: " + c.HP + ")");
+        for (int i = 0; i < teamToTarget.members.size(); i++) {
+            Character c = teamToTarget.members.get(i);
+            if (!c.isDefeated()) {
+                System.out.println((i + 1) + ": " + c.name + " (HP: " + c.HP + ")");
             } else {
-                System.out.println((i+1) + ": " + c.name + " (Defeated)");
+                System.out.println((i + 1) + ": " + c.name + " (Defeated)");
             }
         }
-        int targetChoice =0;
-        while(true){
+        int targetChoice = 0;
+        while (true) {
             System.out.println("Enter target number: ");
-            if(scanner.hasNextInt()) {
+            if (scanner.hasNextInt()) {
                 targetChoice = scanner.nextInt();
-                if(targetChoice >=1 && targetChoice <= teamToTarget.members.size()){
-                    Character potentialTarget = teamToTarget.members.get(targetChoice-1);
-                    if(!potentialTarget.isDefeated()){
+                if (targetChoice >= 1 && targetChoice <= teamToTarget.members.size()) {
+                    Character potentialTarget = teamToTarget.members.get(targetChoice - 1);
+                    if (!potentialTarget.isDefeated()) {
                         return potentialTarget;
                     } else {
                         System.out.println("That target has been defeated. Please choose another.");
                     }
                 } else {
-                    System.out.println("Invalid number. Please enter a number between 1 and " + teamToTarget.members.size() + ".");
+                    System.out.println(
+                            "Invalid number. Please enter a number between 1 and " + teamToTarget.members.size() + ".");
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); 
+                scanner.next();
             }
         }
     }
 
-
     private void executeAction(Character actor, Action action, Character target) {
         // The damage/heal calculation is now handled in Action
-        // call action effect and log?
+        // call action effect
 
-        // action.effect will print its own messages based on the outcome (miss, crit, heal, etc.)
+        // action.effect will print its own messages based on the outcome (miss, crit,
+        // heal, etc.)
         // and also deduct costs and apply effects.
 
         action.effect(actor, target, getEnemyTeam(actor).members.contains(target)); // Pass true if target is an enemy
 
         // check to see if character is defeated
         if (target.HP <= 0) {
-            target.HP = 0; 
+            target.HP = 0;
             System.out.println(target.name + " has been defeated!");
-            combatLog.add(target.name + " was defeated.");
         }
-        // combat log
     }
-
 
     public boolean checkCondition() {
         int activeTeams = 0;
@@ -294,12 +296,5 @@ public class Game {
             }
         }
         return activeTeams <= 1;
-    }
-
-    public String combatLog() {
-        StringBuilder sb = new StringBuilder();
-        for (String log : combatLog)
-            sb.append(log).append("\n");
-        return sb.toString();
     }
 }

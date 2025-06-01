@@ -24,7 +24,8 @@ public class StatusEffectTests {
         testCharacter = new Character("EffectSubject", DUMMY_RACE, DUMMY_CLASS);
 
         // Ensure character stats are at a known state
-        testCharacter.HP = 100; testCharacter.setCurrentHP(100);
+        testCharacter.HP = 100;
+        testCharacter.setCurrentHP(100);
         testCharacter.Strength = 10;
         testCharacter.Intellect = 10;
         testCharacter.Agility = 10;

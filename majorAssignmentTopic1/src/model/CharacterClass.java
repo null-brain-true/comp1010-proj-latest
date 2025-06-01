@@ -1,4 +1,5 @@
 package model;
+
 import java.util.ArrayList;
 
 public class CharacterClass {
@@ -9,7 +10,7 @@ public class CharacterClass {
     public int bonusHP, bonusSP, bonusMP;
     public ArrayList<Action> abilities;
 
-    //class skills list
+    // class skills list
     static ArrayList<Action> warriorSkills = new ArrayList<>();
     static ArrayList<Action> paladinSkills = new ArrayList<>();
     static ArrayList<Action> rogueSkills = new ArrayList<>();
@@ -17,6 +18,22 @@ public class CharacterClass {
     static ArrayList<Action> mageSkills = new ArrayList<>();
     static ArrayList<Action> clericSkills = new ArrayList<>();
 
+    /**
+     * Constructor for CharacterClas class
+     * 
+     * @param name
+     * @param Strength
+     * @param Intellect
+     * @param Agility
+     * @param Initiative
+     * @param Defense
+     * @param Evasion
+     * @param Resist
+     * @param bonusHP
+     * @param bonusSP
+     * @param bonusMP
+     * @param abilities
+     */
     public CharacterClass(String name, int Strength, int Intellect, int Agility, int Initiative, int Defense,
             int Evasion, int Resist, int bonusHP, int bonusSP, int bonusMP, ArrayList<Action> abilities) {
         this.name = name;
@@ -33,6 +50,7 @@ public class CharacterClass {
         this.abilities = abilities;
     }
 
+    // stat application to character
     public void applyClassStat(Character c) {
         c.Strength += this.Strength;
         c.Intellect += this.Intellect;
@@ -56,9 +74,10 @@ public class CharacterClass {
         return this.name;
     }
 
-    public static CharacterClass getCharacterClass(String name){
-        for(CharacterClass cc : presets){
-            if(cc.name.equalsIgnoreCase(name)){
+    // for file io
+    public static CharacterClass getCharacterClass(String name) {
+        for (CharacterClass cc : presets) {
+            if (cc.name.equalsIgnoreCase(name)) {
                 return cc;
             }
         }

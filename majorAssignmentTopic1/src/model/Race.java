@@ -15,6 +15,21 @@ public class Race {
     public int Resist;
     public int bonusHP, bonusSP, bonusMP;
 
+    /**
+     * Constructur for Race class
+     * 
+     * @param name
+     * @param Strength
+     * @param Intellect
+     * @param Agility
+     * @param Initiative
+     * @param Defense
+     * @param Evasion
+     * @param Resist
+     * @param bonusHP
+     * @param bonusSP
+     * @param bonusMP
+     */
     public Race(String name, int Strength, int Intellect, int Agility, int Initiative, int Defense, int Evasion,
             int Resist, int bonusHP, int bonusSP, int bonusMP) {
         this.name = name;
@@ -30,6 +45,7 @@ public class Race {
         this.bonusMP = bonusMP;
     }
 
+    // application of stats to character
     public void applyRaceStat(Character c) {
         c.Strength += this.Strength;
         c.Intellect += this.Intellect;
@@ -47,9 +63,9 @@ public class Race {
         return this.name;
     }
 
-    public static Race getRace(String name){
-        for(Race r : presets){
-            if(r.name.equalsIgnoreCase(name)){
+    public static Race getRace(String name) {
+        for (Race r : presets) {
+            if (r.name.equalsIgnoreCase(name)) {
                 return r;
             }
         }

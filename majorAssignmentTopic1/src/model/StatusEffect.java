@@ -10,6 +10,21 @@ public class StatusEffect {
     public boolean buffApplied = false;
     public boolean debuffApplied = false;
 
+    /**
+     * Constructor for StatusEffect class
+     * 
+     * @param name
+     * @param DoT
+     * @param HoT
+     * @param strengthMod
+     * @param intellectMod
+     * @param agilityMod
+     * @param initiativeMod
+     * @param defenseMod
+     * @param evasionMod
+     * @param resistMod
+     * @param duration
+     */
     public StatusEffect(String name, int DoT, int HoT, int strengthMod, int intellectMod, int agilityMod,
             int initiativeMod, int defenseMod, int evasionMod, int resistMod, int duration) {
         this.name = name;
@@ -25,6 +40,7 @@ public class StatusEffect {
         this.duration = duration;
     }
 
+    // place buff
     public void applyBuff(Character c) {
         if (!buffApplied) {
             c.Strength += strengthMod;
@@ -38,6 +54,7 @@ public class StatusEffect {
         }
     }
 
+    // remove buff
     public void buffWearOff(Character c) {
         if (buffApplied && duration <= 0) {
             c.Strength -= strengthMod;
@@ -51,6 +68,7 @@ public class StatusEffect {
         }
     }
 
+    // place debuff
     public void applyDebuff(Character c) {
         if (!debuffApplied) {
             c.Strength -= strengthMod;
@@ -64,6 +82,7 @@ public class StatusEffect {
         }
     }
 
+    // remove debuff
     public void debuffWearOff(Character c) {
         if (debuffApplied && duration <= 0) {
             c.Strength += strengthMod;
@@ -77,6 +96,7 @@ public class StatusEffect {
         }
     }
 
+    // apply DoT or HoT
     public void applyTurnEffect(Character c) {
         if (DoT > 0) {
             c.HP -= DoT;
@@ -86,11 +106,12 @@ public class StatusEffect {
         }
     }
 
+    // remove DoT, HoT, buff, debuff when duration wears off
     public boolean isExpired() {
         return duration <= 0;
     }
 
-     public static void updateStatusEffectsRecursive(List<StatusEffect> effects, Character c, int index) {
+    public static void updateStatusEffects(List<StatusEffect> effects, Character c, int index) {
         if (index >= effects.size()) {
             return; // Base case: processed all effects
         }
@@ -107,11 +128,12 @@ public class StatusEffect {
             effect.buffWearOff(c);
             effect.debuffWearOff(c);
             effects.remove(index);
-            // After removing current effect, recurse on same index because list shifted left
-            updateStatusEffectsRecursive(effects, c, index);
+            // After removing current effect, recurse on same index because list shifted
+            // left
+            updateStatusEffects(effects, c, index);
         } else {
             // Move on to next effect
-            updateStatusEffectsRecursive(effects, c, index + 1);
+            updateStatusEffects(effects, c, index + 1);
         }
     }
 }

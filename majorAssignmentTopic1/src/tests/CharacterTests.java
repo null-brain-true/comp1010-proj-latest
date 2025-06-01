@@ -19,13 +19,14 @@ public class CharacterTests {
     private Race HUMAN;
     private CharacterClass WARRIOR;
 
-   /* */ @BeforeEach
+    /* */ @BeforeEach
     void setUp() {
         HUMAN = new Race("Human", 4, 4, 4, 4, 4, 4, 4, 10, 10, 10);
         ArrayList<Action> warriorSkills = new ArrayList<>();
-        warriorSkills.add(new Action("Dummy Attack", "attack", "physical", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        warriorSkills
+                .add(new Action("Dummy Attack", "attack", "physical", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         WARRIOR = new CharacterClass("Warrior", 7, 2, 3, 3, 6, 4, 3, 15, 10, 5, warriorSkills);
-        testCharacter = new Character("TestHero", HUMAN, WARRIOR); 
+        testCharacter = new Character("TestHero", HUMAN, WARRIOR);
     }
 
     @Test

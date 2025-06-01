@@ -13,7 +13,13 @@ public class Character {
     public boolean isDefeated, outOfSP, outOfMP;
     private int currentHP, currentSP, currentMP;
 
-    // character constructor
+    /**
+     * Constuctor for Character class
+     * 
+     * @param name
+     * @param race
+     * @param characterClass
+     */
     public Character(String name, Race race, CharacterClass characterClass) {
         this.name = name;
         this.race = race;
@@ -48,6 +54,7 @@ public class Character {
         characterClass.applyClassAbilities(this);
     }
 
+    // adding class skills
     public void addAction(Action action) {
         actions.add(action);
     }
@@ -56,10 +63,12 @@ public class Character {
         return this.Initiative;
     }
 
+    // add DoTs, HoTs, Buff and Debuff
     public void addStatusEffect(StatusEffect statusEffect) {
         activeStatusEffects.add(statusEffect);
     }
 
+    // remove DoTs, HoTs, Buff and Debuff
     public void removeStatusEffect(StatusEffect statusEffect) {
         activeStatusEffects.remove(statusEffect);
     }
@@ -105,10 +114,12 @@ public class Character {
     }
 
     public String toCSV() {
-    return name + "," +
-           race.getName() + "," +
-           characterClass.getName();
-}
+        return name + "," +
+                race.getName() + "," +
+                characterClass.getName();
+    }
+
+    // for File IO
     public Object getRace() {
         return this.race;
     }
