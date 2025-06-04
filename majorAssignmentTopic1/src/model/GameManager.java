@@ -1,6 +1,5 @@
 package model;
 
-import java.io.IOException;//tried to load characters but did not work properly
 import java.util.ArrayList;
 import java.util.List;
 

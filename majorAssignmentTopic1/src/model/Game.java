@@ -271,23 +271,6 @@ public class Game {
         }
     }
 
-    private void executeAction(Character actor, Action action, Character target) {
-        // The damage/heal calculation is now handled in Action
-        // call action effect
-
-        // action.effect will print its own messages based on the outcome (miss, crit,
-        // heal, etc.)
-        // and also deduct costs and apply effects.
-
-        action.effect(actor, target, getEnemyTeam(actor).members.contains(target)); // Pass true if target is an enemy
-
-        // check to see if character is defeated
-        if (target.HP <= 0) {
-            target.HP = 0;
-            System.out.println(target.name + " has been defeated!");
-        }
-    }
-
     public boolean checkCondition() {
         int activeTeams = 0;
         for (Team t : team) {
